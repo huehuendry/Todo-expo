@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 import TodoItem from "../components/TodoItem";
 import { useTodos } from "../hooks/useTodos";
 
-export default function HomeScreen() {
-  const { task, setTask, tasks, addTask, toggleDone, deleteTask } = useTodos();
+export default function App() {
+  const { tasks, addTask, toggleDone, deleteTask, editTask } = useTodos();
+  const [text, setText] = useState("");
 
   return (
     <View style={styles.container}>
@@ -13,16 +14,21 @@ export default function HomeScreen() {
       <TextInput
         style={styles.input}
         placeholder="Enter a task"
-        value={task}
-        onChangeText={setTask}
+        value={text}
+        onChangeText={setText}
       />
-      <Button title="Add Task" onPress={addTask} />
+      <Button title="Add Task" onPress={() => { addTask(text); setText(""); }} />
 
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TodoItem item={item} onToggle={toggleDone} onDelete={deleteTask} />
+          <TodoItem
+            task={item}
+            onToggle={toggleDone}
+            onDelete={deleteTask}
+            onEdit={editTask}
+          />
         )}
       />
     </View>
@@ -37,7 +43,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     padding: 10,
     marginBottom: 10,
-    borderRadius: 5,
-    backgroundColor: "white",
-  },
+    borderRadius: 8,
+    backgroundColor: "white"
+  }
 });

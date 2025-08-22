@@ -3,47 +3,40 @@ import { useEffect, useState } from "react";
 import { Task } from "../types/Task";
 
 export function useTodos() {
-  const [task, setTask] = useState("");
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  // Load tasks dari storage saat pertama kali
   useEffect(() => {
     loadTasks();
   }, []);
 
-  // Simpan setiap kali tasks berubah
   useEffect(() => {
     saveTasks();
   }, [tasks]);
 
-  const addTask = () => {
-    if (task.trim() === "") return;
-
-    const newTask: Task = {
-      id: Date.now().toString(),
-      text: task,
-      done: false,
-    };
-
+  const addTask = (text: string) => {
+    if (!text.trim()) return;
+    const newTask: Task = { id: Date.now().toString(), text, done: false };
     setTasks([...tasks, newTask]);
-    setTask("");
   };
 
   const toggleDone = (id: string) => {
-    setTasks(tasks.map((t) => 
-      t.id === id ? { ...t, done: !t.done } : t
-    ));
+    setTasks(tasks.map(t => t.id === id ? { ...t, done: !t.done } : t));
   };
 
   const deleteTask = (id: string) => {
-    setTasks(tasks.filter((t) => t.id !== id));
+    setTasks(tasks.filter(t => t.id !== id));
+  };
+
+  // 🔹 fungsi baru untuk edit
+  const editTask = (id: string, newText: string) => {
+    setTasks(tasks.map(t => t.id === id ? { ...t, text: newText } : t));
   };
 
   const saveTasks = async () => {
     try {
       await AsyncStorage.setItem("tasks", JSON.stringify(tasks));
     } catch (e) {
-      console.log("Error saving tasks", e);
+      console.log("Error saving", e);
     }
   };
 
@@ -52,9 +45,9 @@ export function useTodos() {
       const saved = await AsyncStorage.getItem("tasks");
       if (saved) setTasks(JSON.parse(saved));
     } catch (e) {
-      console.log("Error loading tasks", e);
+      console.log("Error loading", e);
     }
   };
 
-  return { task, setTask, tasks, addTask, toggleDone, deleteTask };
+  return { tasks, addTask, toggleDone, deleteTask, editTask };
 }
