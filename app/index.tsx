@@ -1,3 +1,4 @@
+import { Stack } from "expo-router";
 import React, { useState } from "react";
 import { Button, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 import TodoItem from "../components/TodoItem";
@@ -9,19 +10,34 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>✅ My To-Do List</Text>
+      <Stack.Screen options={{ headerShown: false }} />
+
+      <Text style={styles.title}>My To-Do List</Text>
 
       <TextInput
         style={styles.input}
         placeholder="Enter a task"
         value={text}
         onChangeText={setText}
+        returnKeyType="done"
+        onSubmitEditing={() => {
+          addTask(text);
+          setText("");
+        }}
       />
-      <Button title="Add Task" onPress={() => { addTask(text); setText(""); }} />
+      <Button
+        title="Add Task"
+        onPress={() => {
+          addTask(text);
+          setText("");
+        }}
+      />
 
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}
+        keyboardShouldPersistTaps="handled"
+        ListEmptyComponent={<Text style={{ textAlign: "center", color: "#999" }}>No tasks yet</Text>}
         renderItem={({ item }) => (
           <TodoItem
             task={item}
@@ -44,6 +60,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 8,
-    backgroundColor: "white"
-  }
+    backgroundColor: "white",
+  },
 });
