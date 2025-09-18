@@ -1,16 +1,16 @@
 import { Link, Stack } from "expo-router";
 import React, { useMemo, useState } from "react";
 import {
-  Button,
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
+    Button,
+    FlatList,
+    Pressable,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
 } from "react-native";
-import TodoItem from "../components/TodoItem";
-import { useTodos } from "../hooks/useTodos";
+import TodoItem from "../../components/TodoItem";
+import { useTodos } from "../../hooks/useTodos";
 
 type Filter = "all" | "notdone" | "done";
 
