@@ -1,4 +1,4 @@
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import React, { useMemo, useState } from "react";
 import {
     Button,
@@ -35,9 +35,6 @@ export default function App() {
 
       <Text style={styles.title}> My To-Do List</Text>
 
-      <Link href="/about" style={{ alignSelf: "flex-end", marginBottom: 8 }}>
-        About
-      </Link>
       {/* Input tambah task */}
       <TextInput
         style={styles.input}

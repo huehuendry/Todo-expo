@@ -9,9 +9,9 @@ export default function RootLayout() {
 
 
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="about" options={{ headerShown: true, title: "About" }} />
-        <Stack.Screen name="(tabs)" />  {/* render grup tabs */}
+        {/* <Stack.Screen name="index" />
+        <Stack.Screen name="about" options={{ headerShown: true, title: "About" }} /> */}
+        <Stack.Screen name="(tabs)" />
       </Stack>
     </>
   );
