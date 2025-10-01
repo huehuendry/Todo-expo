@@ -1,18 +1,14 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { AppBootstrap } from "../components/AppBootstrap";
 
 export default function RootLayout() {
   return (
-    <>
-      {/* Status bar adaptif */}
+    <AppBootstrap>
       <StatusBar style="dark" />
-
-
       <Stack screenOptions={{ headerShown: false }}>
-        {/* <Stack.Screen name="index" />
-        <Stack.Screen name="about" options={{ headerShown: true, title: "About" }} /> */}
         <Stack.Screen name="(tabs)" />
       </Stack>
-    </>
+    </AppBootstrap>
   );
 }
