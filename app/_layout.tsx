@@ -8,6 +8,13 @@ export default function RootLayout() {
       <StatusBar style="dark" />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="(modals)/task/[id]"
+          options={{
+            presentation: "modal", // popup
+            headerTitle: "Task Detail",
+          }}
+        />
       </Stack>
     </AppBootstrap>
   );

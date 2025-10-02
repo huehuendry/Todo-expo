@@ -1,6 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -19,6 +21,7 @@ type Props = {
 export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(task.text);
+  const router = useRouter();
 
   const save = () => {
     const trimmed = text.trim();
@@ -55,11 +58,16 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
       ) : (
         <>
           {/* Teks task */}
-          <View style={{ flex: 1 }}>
+          <Pressable
+            style={{ flex: 1 }}
+            onPress={() =>
+              router.push({ pathname: "/(modals)/task/[id]", params: { id: task.id } })
+            }
+          >
             <Text style={styles.text} numberOfLines={2}>
               {task.text}
             </Text>
-          </View>
+          </Pressable>
 
           {/* ✅ Ikon toggle status task */}
           <TouchableOpacity

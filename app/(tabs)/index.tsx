@@ -78,12 +78,6 @@ export default function App() {
             onChange={setFilter}
           />
         </View>
-
-        {/* {hasCompleted && (
-          <Pressable style={styles.clearBtn} onPress={clearCompleted}>
-            <Text style={styles.clearText}>Clear Completed</Text>
-          </Pressable>
-        )} */}
       </View>
 
       {/* List terfilter */}
@@ -91,27 +85,13 @@ export default function App() {
         data={filteredTasks}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingBottom: 40 }}
-        // renderItem={({ item }) => (
-        //   <TodoItem
-        //     task={item}
-        //     onToggle={toggleDone}
-        //     onDelete={deleteTask}
-        //     onEdit={editTask}
-        //   />
-        // )}
         renderItem={({ item }) => (
-          <Pressable
-            onPress={() =>
-              router.push({ pathname: "/(tabs)/[id]", params: { id: item.id } })
-            }
-          >
-            <TodoItem
-              task={item}
-              onToggle={toggleDone} // kini hanya via ikon checkbox
-              onDelete={deleteTask}
-              onEdit={editTask}
-            />
-          </Pressable>
+          <TodoItem
+            task={item}
+            onToggle={toggleDone}
+            onDelete={deleteTask}
+            onEdit={editTask}
+          />
         )}
         ListEmptyComponent={
           <Text style={{ textAlign: "center", marginTop: 24, color: "#777" }}>

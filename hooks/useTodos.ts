@@ -25,10 +25,10 @@ export function useTodos() {
     setTasks(prev => prev.filter(t => t.id !== id));
   }, []);
 
-  const editTask = useCallback((id: string, newText: string) => {
+  const editTask = useCallback((id: string, newText: string, description?: string) => {
     const trimmed = newText.trim();
     if (!trimmed) return;
-    setTasks(prev => prev.map(t => (t.id === id ? { ...t, text: trimmed } : t)));
+    setTasks(prev => prev.map(t => (t.id === id ? { ...t, text: trimmed, description } : t)));
   }, []);
 
   // ✅ BARU: hapus semua task yang sudah selesai
