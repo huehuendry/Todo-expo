@@ -6,7 +6,7 @@ SplashScreen.preventAutoHideAsync();
 
 export function AppBootstrap({ children }: PropsWithChildren) {
   const [loaded] = useFonts({
-    SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {

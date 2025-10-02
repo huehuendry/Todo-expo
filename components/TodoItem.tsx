@@ -1,6 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Task } from "../types/Task";
 
 type Props = {
@@ -16,9 +22,7 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
 
   const save = () => {
     const trimmed = text.trim();
-    if (trimmed) {
-      onEdit(task.id, trimmed);
-    }
+    if (trimmed) onEdit(task.id, trimmed);
     setIsEditing(false);
   };
 
@@ -33,7 +37,11 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
             autoFocus
             onSubmitEditing={save}
           />
-          <TouchableOpacity accessibilityLabel="Save" onPress={save} style={styles.actionBtn}>
+          <TouchableOpacity
+            accessibilityLabel="Save"
+            onPress={save}
+            style={styles.actionBtn}
+          >
             <Ionicons name="checkmark" size={20} color="#1e90ff" />
           </TouchableOpacity>
           <TouchableOpacity
@@ -46,9 +54,27 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
         </>
       ) : (
         <>
-          <TouchableOpacity style={{ flex: 1 }} onPress={() => onToggle(task.id)}>
-            <Text style={[styles.text, task.done && styles.done]}>{task.text}</Text>
+          {/* Teks task */}
+          <View style={{ flex: 1 }}>
+            <Text style={styles.text} numberOfLines={2}>
+              {task.text}
+            </Text>
+          </View>
+
+          {/* ✅ Ikon toggle status task */}
+          <TouchableOpacity
+            onPress={() => onToggle(task.id)}
+            style={styles.actionBtn}
+          >
+            <Ionicons
+              name={
+                task.done ? "checkmark-done-circle" : "checkmark-circle-outline"
+              }
+              size={20}
+              color={task.done ? "#22c55e" : "#9ca3af"}
+            />
           </TouchableOpacity>
+
           <TouchableOpacity
             accessibilityLabel="Edit"
             onPress={() => setIsEditing(true)}
@@ -56,6 +82,7 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
           >
             <Ionicons name="create-outline" size={20} color="#1e90ff" />
           </TouchableOpacity>
+
           <TouchableOpacity
             accessibilityLabel="Delete"
             onPress={() => onDelete(task.id)}
@@ -78,8 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
   },
-  text: { fontSize: 16 },
-  done: { textDecorationLine: "line-through", color: "gray" },
+  text: { fontSize: 16, color: "#111" },
   input: {
     flex: 1,
     borderWidth: 1,
@@ -89,5 +115,5 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   actionBtn: { marginLeft: 8 },
+  doneIcon: { marginLeft: 8, marginRight: 8 },
 });
-
