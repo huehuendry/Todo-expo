@@ -1,33 +1,99 @@
-import { useLocalSearchParams } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import { KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useTodos } from "../../../hooks/useTodos";
 
 export default function TaskModal() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { tasks } = useTodos();
+  const { tasks, editTask } = useTodos();
+  const task = tasks.find(t => t.id === id);
 
-  const task = tasks.find((t) => t.id === id);
+  const [desc, setDesc] = useState("");
+
+  useEffect(() => {
+    if (task?.description) setDesc(task.description);
+  }, [task]);
 
   if (!task) {
     return (
-      <View style={styles.container}>
-        <Text>Task not found</Text>
-      </View>
+      <Pressable style={styles.backdrop} onPress={() => router.back()}>
+        <View style={styles.card}><Text>Task not found</Text></View>
+      </Pressable>
     );
   }
 
+  const close = () => {
+    // auto-save deskripsi saat tutup
+    editTask(task.id, task.text, desc);
+    router.back();
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{task.text}</Text>
-      <Text style={styles.desc}>
-        {task.description || "No description yet"}
-      </Text>
-    </View>
+    <KeyboardAvoidingView
+      style={styles.backdrop}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+      {/* Tap di luar card untuk menutup */}
+      <Pressable style={StyleSheet.absoluteFill} onPress={close} />
+
+      {/* Popup kecil di tengah */}
+      <View style={styles.card}>
+        <Text style={styles.title}>{task.text}</Text>
+
+        <Text style={styles.label}>Description</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Add some details..."
+          value={desc}
+          onChangeText={setDesc}
+          multiline
+        />
+
+        {/* Tombol sederhana */}
+        <View style={styles.row}>
+          <Pressable style={[styles.btn, styles.cancel]} onPress={() => router.back()}>
+            <Text style={styles.btnText}>Close</Text>
+          </Pressable>
+          <Pressable style={[styles.btn, styles.save]} onPress={close}>
+            <Text style={[styles.btnText, { color: "white" }]}>Save</Text>
+          </Pressable>
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
-  title: { fontSize: 20, fontWeight: "bold", marginBottom: 10 },
-  desc: { fontSize: 16, color: "#444" },
+  // backdrop gelap transparan, center content
+  backdrop: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.35)",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 16,
+  },
+  // card pop-up
+  card: {
+    width: "100%",
+    maxWidth: 560,                // biar kecil di layar besar
+    backgroundColor: "white",
+    borderRadius: 14,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 6,
+  },
+  title: { fontSize: 18, fontWeight: "700", marginBottom: 12, color: "#111" },
+  label: { fontSize: 14, fontWeight: "600", marginBottom: 6, color: "#444" },
+  input: {
+    borderWidth: 1, borderColor: "#ddd", borderRadius: 10,
+    padding: 10, minHeight: 100, textAlignVertical: "top", backgroundColor: "#fafafa",
+    marginBottom: 14,
+  },
+  row: { flexDirection: "row", justifyContent: "flex-end", gap: 10 },
+  btn: { paddingVertical: 10, paddingHorizontal: 16, borderRadius: 10, borderWidth: 1, borderColor: "#ddd" },
+  cancel: { backgroundColor: "white" },
+  save: { backgroundColor: "#1e90ff", borderColor: "#1e90ff" },
+  btnText: { color: "#333", fontWeight: "600" },
 });

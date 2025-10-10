@@ -11,8 +11,10 @@ export default function RootLayout() {
         <Stack.Screen
           name="(modals)/task/[id]"
           options={{
-            presentation: "modal", // popup
+            presentation: "transparentModal",
+            // presentation: "modal", // popup
             headerTitle: "Task Detail",
+            animation: "fade",
           }}
         />
       </Stack>
