@@ -12,7 +12,6 @@ export default function RootLayout() {
           name="(modals)/task/[id]"
           options={{
             presentation: "transparentModal",
-            // presentation: "modal", // popup
             headerTitle: "Task Detail",
             animation: "fade",
           }}
