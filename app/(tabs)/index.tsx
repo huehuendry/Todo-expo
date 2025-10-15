@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import TodoItem from "../../components/TodoItem";
-import { useTodos } from "../../hooks/useTodos";
+import { useTodos } from "../../context/TodosContext";
 
 type Filter = "all" | "notdone" | "done";
 
@@ -83,6 +83,7 @@ export default function App() {
       {/* List terfilter */}
       <FlatList
         data={filteredTasks}
+        extraData={tasks}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingBottom: 40 }}
         renderItem={({ item }) => (

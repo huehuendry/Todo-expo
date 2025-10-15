@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { useTodos } from "../../../hooks/useTodos";
+import { useTodos } from "../../../context/TodosContext";
 
 export default function TaskModal() {
   const { id } = useLocalSearchParams<{ id: string }>();

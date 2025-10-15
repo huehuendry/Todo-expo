@@ -30,98 +30,148 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
   };
 
   return (
-    <View style={styles.row}>
-      {isEditing ? (
-        <>
-          <TextInput
-            style={[styles.input]}
-            value={text}
-            onChangeText={setText}
-            autoFocus
-            onSubmitEditing={save}
-          />
-          <TouchableOpacity
-            accessibilityLabel="Save"
-            onPress={save}
-            style={styles.actionBtn}
-          >
-            <Ionicons name="checkmark" size={20} color="#1e90ff" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            accessibilityLabel="Cancel"
-            onPress={() => setIsEditing(false)}
-            style={styles.actionBtn}
-          >
-            <Ionicons name="close" size={20} color="#ff3b30" />
-          </TouchableOpacity>
-        </>
-      ) : (
-        <>
-          {/* Teks task */}
-          <Pressable
-            style={{ flex: 1 }}
-            onPress={() =>
-              router.push({ pathname: "/(modals)/task/[id]", params: { id: task.id } })
-            }
-          >
-            <Text style={styles.text} numberOfLines={2}>
-              {task.text}
-            </Text>
-          </Pressable>
+    <View style={styles.wrapRow}>
+      {/* ✅ Indicator di luar card (kiri) */}
+      <TouchableOpacity
+        onPress={() => onToggle(task.id)}
+        hitSlop={8}
+        style={styles.leftIndicator}
+        accessibilityRole="checkbox"
+        accessibilityState={{ checked: task.done }}
+      >
+        <Ionicons
+          name={
+            task.done ? "checkmark-done-circle" : "checkmark-circle-outline"
+          }
+          size={22}
+          color={task.done ? "#22c55e" : "#9ca3af"}
+        />
+      </TouchableOpacity>
 
-          {/* ✅ Ikon toggle status task */}
-          <TouchableOpacity
-            onPress={() => onToggle(task.id)}
-            style={styles.actionBtn}
-          >
-            <Ionicons
-              name={
-                task.done ? "checkmark-done-circle" : "checkmark-circle-outline"
-              }
-              size={20}
-              color={task.done ? "#22c55e" : "#9ca3af"}
+      {/* 🧾 Card konten task */}
+      <View style={styles.card}>
+        {isEditing ? (
+          <>
+            <TextInput
+              style={styles.input}
+              value={text}
+              onChangeText={setText}
+              autoFocus
+              onSubmitEditing={save}
             />
-          </TouchableOpacity>
+            <TouchableOpacity
+              accessibilityLabel="Save"
+              onPress={save}
+              style={styles.actionBtn}
+              hitSlop={6}
+            >
+              <Ionicons name="checkmark" size={20} color="#1e90ff" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              accessibilityLabel="Cancel"
+              onPress={() => setIsEditing(false)}
+              style={styles.actionBtn}
+              hitSlop={6}
+            >
+              <Ionicons name="close" size={20} color="#ff3b30" />
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            {/* 📄 Teks = buka modal detail */}
+            <Pressable
+              style={{ flex: 1 }}
+              onPress={() =>
+                router.push({
+                  pathname: "/(modals)/task/[id]",
+                  params: { id: task.id },
+                })
+              }
+            >
+              <Text style={styles.text} numberOfLines={2}>
+                {task.text}
+              </Text>
+              
+              {!!task.description && (
+                <Text style={styles.desc} numberOfLines={2}>
+                  {task.description}
+                </Text>
+              )}
+            </Pressable>
 
-          <TouchableOpacity
-            accessibilityLabel="Edit"
-            onPress={() => setIsEditing(true)}
-            style={styles.actionBtn}
-          >
-            <Ionicons name="create-outline" size={20} color="#1e90ff" />
-          </TouchableOpacity>
+            {/* ✏️ Edit */}
+            <TouchableOpacity
+              accessibilityLabel="Edit"
+              onPress={() => setIsEditing(true)}
+              style={styles.actionBtn}
+              hitSlop={6}
+            >
+              <Ionicons name="create-outline" size={20} color="#1e90ff" />
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            accessibilityLabel="Delete"
-            onPress={() => onDelete(task.id)}
-            style={styles.actionBtn}
-          >
-            <Ionicons name="trash-outline" size={20} color="#ff3b30" />
-          </TouchableOpacity>
-        </>
-      )}
+            {/* 🗑️ Delete */}
+            <TouchableOpacity
+              accessibilityLabel="Delete"
+              onPress={() => onDelete(task.id)}
+              style={styles.actionBtn}
+              hitSlop={6}
+            >
+              <Ionicons name="trash-outline" size={20} color="#ff3b30" />
+            </TouchableOpacity>
+          </>
+        )}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  row: {
+  desc: {
+    marginTop: 4,
+    fontSize: 13,
+    color: "#6b7280",
+  },
+  descDone: {
+    color: "#9ca3af",
+    opacity: 0.8,
+  },
+  // Baris luar: indicator kiri + card kanan
+  wrapRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 8,
+    paddingHorizontal: 4,
+  },
+  // Area ikon di kiri (di luar card)
+  leftIndicator: {
+    width: 28,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 8,
+  },
+  // Card task
+  card: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
-    marginBottom: 6,
     backgroundColor: "white",
-    borderRadius: 8,
+    borderRadius: 10,
+    // optional: sedikit bayangan biar lebih “card”
+    shadowColor: "#000",
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
   },
   text: { fontSize: 16, color: "#111" },
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#ddd",
     padding: 8,
-    borderRadius: 6,
+    borderRadius: 8,
     marginRight: 8,
+    backgroundColor: "#fafafa",
   },
   actionBtn: { marginLeft: 8 },
-  doneIcon: { marginLeft: 8, marginRight: 8 },
 });
