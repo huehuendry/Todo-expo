@@ -1,12 +1,20 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { useTodos } from "../../../context/TodosContext";
 
 export default function TaskModal() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { tasks, editTask } = useTodos();
-  const task = tasks.find(t => t.id === id);
+  const task = tasks.find((t) => t.id === id);
 
   const [desc, setDesc] = useState("");
 
@@ -17,7 +25,9 @@ export default function TaskModal() {
   if (!task) {
     return (
       <Pressable style={styles.backdrop} onPress={() => router.back()}>
-        <View style={styles.card}><Text>Task not found</Text></View>
+        <View style={styles.card}>
+          <Text>Task not found</Text>
+        </View>
       </Pressable>
     );
   }
@@ -51,7 +61,10 @@ export default function TaskModal() {
 
         {/* Tombol sederhana */}
         <View style={styles.row}>
-          <Pressable style={[styles.btn, styles.cancel]} onPress={() => router.back()}>
+          <Pressable
+            style={[styles.btn, styles.cancel]}
+            onPress={() => router.back()}
+          >
             <Text style={styles.btnText}>Close</Text>
           </Pressable>
           <Pressable style={[styles.btn, styles.save]} onPress={close}>
@@ -75,24 +88,33 @@ const styles = StyleSheet.create({
   // card pop-up
   card: {
     width: "100%",
-    maxWidth: 560,                // biar kecil di layar besar
+    maxWidth: 560,
     backgroundColor: "white",
     borderRadius: 14,
     padding: 16,
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
+    boxShadow: "0px 4px 10px rgba(0,0,0,0.15)",
     elevation: 6,
   },
   title: { fontSize: 18, fontWeight: "700", marginBottom: 12, color: "#111" },
   label: { fontSize: 14, fontWeight: "600", marginBottom: 6, color: "#444" },
   input: {
-    borderWidth: 1, borderColor: "#ddd", borderRadius: 10,
-    padding: 10, minHeight: 100, textAlignVertical: "top", backgroundColor: "#fafafa",
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 10,
+    padding: 10,
+    minHeight: 150,
+    textAlignVertical: "top",
+    backgroundColor: "#fafafa",
     marginBottom: 14,
   },
   row: { flexDirection: "row", justifyContent: "flex-end", gap: 10 },
-  btn: { paddingVertical: 10, paddingHorizontal: 16, borderRadius: 10, borderWidth: 1, borderColor: "#ddd" },
+  btn: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
   cancel: { backgroundColor: "white" },
   save: { backgroundColor: "#1e90ff", borderColor: "#1e90ff" },
   btnText: { color: "#333", fontWeight: "600" },

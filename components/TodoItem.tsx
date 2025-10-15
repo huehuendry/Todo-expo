@@ -91,11 +91,9 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
               <Text style={styles.text} numberOfLines={2}>
                 {task.text}
               </Text>
-              
+
               {!!task.description && (
-                <Text style={styles.desc} numberOfLines={2}>
-                  {task.description}
-                </Text>
+                <Text style={styles.desc}>{task.description}</Text>
               )}
             </Pressable>
 
@@ -157,10 +155,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "white",
     borderRadius: 10,
-    // optional: sedikit bayangan biar lebih “card”
-    shadowColor: "#000",
-    shadowOpacity: 0.06,
-    shadowRadius: 6,
+    boxShadow: "0px 4px 10px rgba(0,0,0,0.15)",
     elevation: 2,
   },
   text: { fontSize: 16, color: "#111" },
