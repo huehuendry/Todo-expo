@@ -3,4 +3,6 @@ export type Task = {
   text: string;
   done: boolean;
   description?: string;
+
+  dueAt?: string;
 };

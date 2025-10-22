@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import dayjs from "dayjs"; // NEW
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -88,12 +89,42 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
                 })
               }
             >
-              <Text style={styles.text} numberOfLines={2}>
+              <Text
+                style={[styles.text, task.done && styles.textDone]} // NEW: coret judul jika done
+                numberOfLines={2}
+              >
                 {task.text}
               </Text>
 
               {!!task.description && (
-                <Text style={styles.desc}>{task.description}</Text>
+                <Text
+                  style={[styles.desc, task.done && styles.descDone]} // NEW
+                >
+                  {task.description}
+                </Text>
+              )}
+
+              {/* NEW: Due date di bawah deskripsi */}
+              {!!task.dueAt && (
+                <View
+                  style={styles.dueRow}
+                  accessible
+                  accessibilityRole="text"
+                  accessibilityLabel={`Due date ${dayjs(task.dueAt).format(
+                    "DD/MM/YYYY"
+                  )}`}
+                >
+                  <Ionicons
+                    name="calendar-outline"
+                    size={14}
+                    style={[styles.dueIcon, task.done && styles.dueMuted]}
+                  />
+                  <Text
+                    style={[styles.dueText, task.done && styles.dueTextDone]}
+                  >
+                    {dayjs(task.dueAt).format("DD/MM/YYYY")}
+                  </Text>
+                </View>
               )}
             </Pressable>
 
@@ -124,6 +155,13 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
 }
 
 const styles = StyleSheet.create({
+  // NEW: styling judul saat done
+  text: { fontSize: 16, color: "#111" },
+  textDone: {
+    textDecorationLine: "line-through",
+    color: "#6b7280",
+  },
+
   desc: {
     marginTop: 4,
     fontSize: 13,
@@ -132,7 +170,28 @@ const styles = StyleSheet.create({
   descDone: {
     color: "#9ca3af",
     opacity: 0.8,
+    textDecorationLine: "line-through",
   },
+
+  // NEW: due date row
+  dueRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6, // jika RN-mu tidak support gap, hapus dan pakai marginRight di dueIcon
+    marginTop: 4,
+  },
+  dueIcon: {
+    opacity: 0.85,
+    // jika kamu hapus 'gap', aktifkan ini:
+    // marginRight: 6,
+  },
+  dueMuted: { opacity: 0.5 },
+  dueText: { fontSize: 12, color: "#555" },
+  dueTextDone: {
+    textDecorationLine: "line-through",
+    opacity: 0.6,
+  },
+
   // Baris luar: indicator kiri + card kanan
   wrapRow: {
     flexDirection: "row",
@@ -155,10 +214,10 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "white",
     borderRadius: 10,
-    boxShadow: "0px 4px 10px rgba(0,0,0,0.15)",
-    elevation: 2,
+    boxShadow: "0px 4px 10px rgba(0,0,0,0.15)" as any, // untuk RN Web
+    elevation: 2, // untuk Android
   },
-  text: { fontSize: 16, color: "#111" },
+
   input: {
     flex: 1,
     borderWidth: 1,
