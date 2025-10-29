@@ -1,10 +1,11 @@
-# Welcome to your Expo app 👋
+# 📝 Welcome to Tazkmate 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is an Expo project created with [create-expo-app](https://www.npmjs.com/package/create-expo-app).
+Tazkmate is a simple yet powerful **To-Do List App** built with **React Native + Expo**, designed to help you stay productive and organized every day.
 
 ## Get started
 
-1. Install dependencies
+1. 🚀 Install dependencies
 
    ```bash
    npm install
@@ -25,15 +26,28 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## 🧩 Features
 
-When you're ready, run:
+* ✅ Add, edit, and delete tasks
+* 🗒 Add descriptions & due dates
+* 💾 Data saved locally via AsyncStorage
+* 🌙 Auto dark/light mode
+* 📱 Runs on Android & Web
+* 🚫 Works offline — data won’t disappear after app restart
 
-```bash
-npm run reset-project
-```
+## 🧱 Tech Stack
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+| Layer       | Technology                |
+| --------    | --------                  |
+| Framework   | Expo SDK 54               |
+| Language    | TypeScript + React Native | 
+| Navigation  | expo-router v6            | 
+| Storage     | AsyncStorage              | 
+| UI / Icons  | @expo/vector-icons        | 
+| Styling     | React Native StyleSheet   | 
+
+
+
 
 ## Learn more
 
@@ -48,3 +62,8 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## 👨‍💻 Author
+**Hendry Agus Setiawan**
+Mobile Developer (Kotlin · React Native)
+📧 huendrys@gmail.com · 🌐 [LinkedIn](www.linkedin.com/in/hendrysetiawan7)

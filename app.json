@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "MyFirstApp",
-    "slug": "MyFirstApp",
+    "name": "Tazkmate",
+    "slug": "tazkmate",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myfirstapp",
+    "icon": "./assets/images/tazkmate-icon-1024.png",
+    "scheme": "tazkmate",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -13,16 +13,16 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/tazkmate-adaptive-foreground-1024.png",
+        "backgroundColor": "#0EA5E9"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.huendrys.MyFirstApp"
+      "package": "com.huendrys.tazkmate"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/tazkmate-icon-1024.png"
     },
     "plugins": [
       "expo-router",
