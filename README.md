@@ -1,6 +1,6 @@
 # 📝 Welcome to Tazkmate 👋
 
-This is an Expo project created with [create-expo-app](https://www.npmjs.com/package/create-expo-app).
+This is an Expo project created with [create-expo-app](https://www.npmjs.com/package/create-expo-app). <br>
 Tazkmate is a simple yet powerful **To-Do List App** built with **React Native + Expo**, designed to help you stay productive and organized every day.
 
 ## Get started
@@ -28,12 +28,12 @@ You can start developing by editing the files inside the **app** directory. This
 
 ## 🧩 Features
 
-* ✅ Add, edit, and delete tasks
-* 🗒 Add descriptions & due dates
-* 💾 Data saved locally via AsyncStorage
-* 🌙 Auto dark/light mode
-* 📱 Runs on Android & Web
-* 🚫 Works offline — data won’t disappear after app restart
+<br> ✅ Add, edit, and delete tasks
+<br> 🗒 Add descriptions & due dates
+<br> 💾 Data saved locally via AsyncStorage
+<br> 🌙 Auto dark/light mode
+<br> 📱 Runs on Android & Web
+<br> 🚫 Works offline — data won’t disappear after app restart
 
 ## 🧱 Tech Stack
 
@@ -45,8 +45,6 @@ You can start developing by editing the files inside the **app** directory. This
 | Storage     | AsyncStorage              | 
 | UI / Icons  | @expo/vector-icons        | 
 | Styling     | React Native StyleSheet   | 
-
-
 
 
 ## Learn more
@@ -64,6 +62,6 @@ Join our community of developers creating universal apps.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
 
 ## 👨‍💻 Author
-**Hendry Agus Setiawan**
-Mobile Developer (Kotlin · React Native)
-📧 huendrys@gmail.com · 🌐 [LinkedIn](www.linkedin.com/in/hendrysetiawan7)
+**Hendry Agus Setiawan** <br>
+Mobile Developer (Kotlin · React Native) <br>
+📧 huendrys@gmail.com · 🌐 [LinkedIn](www.linkedin.com/in/hendrysetiawan7) <br>
