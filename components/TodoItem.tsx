@@ -3,6 +3,7 @@ import dayjs from "dayjs"; // NEW
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
+  Alert,
   Pressable,
   StyleSheet,
   Text,
@@ -28,6 +29,23 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
     const trimmed = text.trim();
     if (trimmed) onEdit(task.id, trimmed);
     setIsEditing(false);
+  };
+
+    const confirmDelete = () => {
+    
+    Alert.alert(
+      "Delete task?",
+      `Are you sure you want to delete:\n“${task.text}”`,
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive", // iOS: merah; Android: diabaikan (tetap ok)
+          onPress: () => onDelete(task.id),
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   return (
@@ -131,7 +149,10 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
             {/* ✏️ Edit */}
             <TouchableOpacity
               accessibilityLabel="Edit"
-              onPress={() => setIsEditing(true)}
+              onPress={() => {
+                setText(task.text);
+                setIsEditing(false);
+              }}
               style={styles.actionBtn}
               hitSlop={6}
             >
@@ -141,7 +162,7 @@ export default function TodoItem({ task, onToggle, onDelete, onEdit }: Props) {
             {/* 🗑️ Delete */}
             <TouchableOpacity
               accessibilityLabel="Delete"
-              onPress={() => onDelete(task.id)}
+              onPress={confirmDelete}
               style={styles.actionBtn}
               hitSlop={6}
             >
